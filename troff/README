@@ -1,0 +1,25 @@
+In this directory you find some files to test makeindex with troff
+
+troff.ist		a sample style file
+ixmac			defines macros to be used for indexing under troff
+sample.txt		a sample troff document with embedded index commands
+sample.idx		raw index file
+sample.ind		the pre-formatted index file
+makeind			a shell script that creates the raw index file (.idx),
+			invokes makeindex which creates the final index file
+			(.ind).  Note that
+				makeind sample.txt
+			will create sample.idx, sample.ilg, and sample.ind.
+
+To typeset sample.txt as a Postscript file, use the following two commands
+on a command prompt:
+
+./makeind sample.txt
+# This extracts the cross-referece information from sample.txt
+
+troff -ms -Tps sample.txt sample.ind | grops > sample.ps
+# Create a PostScript version of sample.txt
+
+Opening sample.ps will show you a nicely formatted index using the
+troff ms macro package. Using another macro package requires editing
+the style file troff.ist
