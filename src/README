@@ -1,24 +1,20 @@
 ------------------------------------------------------------------------------
 		MakeIndexk General Release Information
 
-        Copyright (C) 1998-2011 by the TeX Live project.
+	Copyright (C) 2012 Johann Höchtl
+        Copyright (C) 1998-2012 by the TeX Live project.
 	Copyright (C) 1989 by Chen & Harrison International Systems, Inc.
 	Copyright (C) 1988 by Olivetti Research Center
 	Copyright (C) 1987 by Regents of the University of California
 
 			Author: Pehong Chen
 
-MakeIndex is a general purpose index processor written for use with
-(La)TeX.
+MakeIndex is a general purpose index processor
 
-makeindex is currently maintained in TeX Live and many more people have
-contributed changes.  This incarnation uses the kpathsea library.
-Please send bug reports to tex-k@tug.org.
-
-Documentation is in the TeX Live directory texmf-dist/doc/support/makeindex
-and texmf/doc/man/man1/{make,mk}index.1.
-
-Basic index styles are in texmf-dist/makeindex/base.
+This makeindex is a clone of the current reincarnation of makeindex in
+http://www.tug.org/svn/texlive/trunk/Build/source/texk/makeindexk/
+for the purpose of leading makeindex back to it's root as a
+general purpose indexer rather than a TeX specific tool.
 
 ------------------------------------------------------------------------------
 Everyone should read COPYING before installing or distributing MakeIndex.
