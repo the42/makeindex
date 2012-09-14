@@ -85,7 +85,7 @@ ALL		= $(MAKEFILE) $(DOC) $(MANUAL) $(HDRS) $(SRCS)
 
 BINDIR		= /usr/local/bin
 
-CFLAGS		= -O
+CFLAGS		= -O -D USE_KPATHSEA=0
 
 CHMOD		= chmod
 

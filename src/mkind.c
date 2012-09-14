@@ -328,7 +328,10 @@ FATAL1("Option -g invalid, quote character must be different from '%c'.\n",
 #endif
 
 	if (ind_given) {
-	    if (!kpse_out_name_ok(ind_fn) ||
+	    if (
+#if USE_KPATHSEA
+	      !kpse_out_name_ok(ind_fn) ||
+#endif
 	         (!ind_fp && ((ind_fp = OPEN_OUT(ind_fn)) == NULL)))
 		FATAL1("Can't create output index file %s.\n", ind_fn);
 	} else {
@@ -340,7 +343,10 @@ FATAL1("Option -g invalid, quote character must be different from '%c'.\n",
 	}
 
 	if (ilg_given) {
-	    if (!kpse_out_name_ok(ilg_fn) ||
+	    if (
+#if USE_KPATHSEA
+	      !kpse_out_name_ok(ilg_fn) ||
+#endif
 	         (!ilg_fp && ((ilg_fp = OPEN_OUT(ilg_fn)) == NULL)))
 		FATAL1("Can't create transcript file %s.\n", ilg_fn);
 	} else {
@@ -395,7 +401,10 @@ check_idx(char *fn, int open_fn)
     idx_fn = fn;
 
     if ( ( open_fn && 
-	   (!kpse_in_name_ok(idx_fn) ||
+	   (
+#if USE_KPATHSEA
+	     !kpse_in_name_ok(idx_fn) ||
+#endif
 	     (idx_fp = OPEN_IN(idx_fn)) == NULL)
 	 ) ||
 	((!open_fn) && (access(idx_fn, R_OK) != 0))) {
@@ -415,7 +424,10 @@ check_idx(char *fn, int open_fn)
 	    snprintf(tmp_fn, STRING_MAX+5, "%s%s", base, INDEX_IDX);
 	    idx_fn = tmp_fn;
 	    if ((open_fn && 
-		 (!kpse_in_name_ok(idx_fn) ||
+		 (
+#if USE_KPATHSEA
+		   !kpse_in_name_ok(idx_fn) ||
+#endif
 		   (idx_fp = OPEN_IN(idx_fn)) == NULL)
 		) ||
 		((!open_fn) && (access(idx_fn, R_OK) != 0))) {
@@ -437,7 +449,10 @@ check_all(char *fn, int ind_given, int ilg_given, int log_given)
 	snprintf(ind, sizeof(ind), "%s%s", base, INDEX_IND);
 	ind_fn = ind;
     }
-    if (!kpse_out_name_ok(ind_fn) ||
+    if (
+#if USE_KPATHSEA
+      !kpse_out_name_ok(ind_fn) ||
+#endif
          ((ind_fp = OPEN_OUT(ind_fn)) == NULL))
 	FATAL1("Can't create output index file %s.\n", ind_fn);
 
@@ -446,13 +461,19 @@ check_all(char *fn, int ind_given, int ilg_given, int log_given)
 	snprintf(ilg, sizeof(ilg), "%s%s", base, INDEX_ILG);
 	ilg_fn = ilg;
     }
-    if (!kpse_out_name_ok(ilg_fn) ||
+    if (
+#if USE_KPATHSEA
+      !kpse_out_name_ok(ilg_fn) ||
+#endif
          ((ilg_fp = OPEN_OUT(ilg_fn)) == NULL))
 	FATAL1("Can't create transcript file %s.\n", ilg_fn);
 
     if (log_given) {
 	snprintf(log_fn, sizeof(log_fn), "%s%s", base, INDEX_LOG);
-	if (!kpse_in_name_ok(log_fn) ||
+	if (
+#if USE_KPATHSEA
+	  !kpse_in_name_ok(log_fn) ||
+#endif
 	     (log_fp = OPEN_IN(log_fn)) == NULL) {
 	    FATAL1("Source log file %s not found.\n", log_fn);
 	} else {
