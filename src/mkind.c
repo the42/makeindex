@@ -43,7 +43,7 @@ int     idx_dot = TRUE;		       /* flag which shows dot in ilg being
 					* active */
 int     idx_tt = 0;		       /* total entry count (all files) */
 int     idx_et = 0;		       /* erroneous entry count (all files) */
-size_t  idx_gt = 0;		       /* good entry count (all files) */
+int     idx_gt = 0;		       /* good entry count (all files) */
 
 FIELD_PTR *idx_key;
 FILE   *log_fp;
@@ -107,8 +107,8 @@ main(int argc, char *argv[])
 
 #if USE_KPATHSEA
     kpse_set_program_name (argv[0], "makeindex");
-#endif
-
+    pgm_fn = kpse_program_name;
+#else
     /* determine program name */
     pgm_fn = strrchr(*argv, DIR_DELIM);
 #ifdef ALT_DIR_DELIM
@@ -123,6 +123,7 @@ main(int argc, char *argv[])
 	pgm_fn = *argv;
     else
 	pgm_fn++;
+#endif /* USE_KPATHSEA */
 
     /* process command line options */
     while (--argc > 0) {
@@ -330,7 +331,7 @@ FATAL1("Option -g invalid, quote character must be different from '%c'.\n",
 	if (ind_given) {
 	    if (
 #if USE_KPATHSEA
-	      !kpse_out_name_ok(ind_fn) ||
+-	      !kpse_out_name_ok(ind_fn) ||
 #endif
 	         (!ind_fp && ((ind_fp = OPEN_OUT(ind_fn)) == NULL)))
 		FATAL1("Can't create output index file %s.\n", ind_fn);
@@ -401,9 +402,9 @@ check_idx(char *fn, int open_fn)
     idx_fn = fn;
 
     if ( ( open_fn && 
-	   (
+	(
 #if USE_KPATHSEA
-	     !kpse_in_name_ok(idx_fn) ||
+	  !kpse_in_name_ok(idx_fn) ||
 #endif
 	     (idx_fp = OPEN_IN(idx_fn)) == NULL)
 	 ) ||
@@ -423,10 +424,10 @@ check_idx(char *fn, int open_fn)
 		FATAL("Not enough core...abort.\n");
 	    snprintf(tmp_fn, STRING_MAX+5, "%s%s", base, INDEX_IDX);
 	    idx_fn = tmp_fn;
-	    if ((open_fn && 
-		 (
+	    if ((open_fn &&
+	      (
 #if USE_KPATHSEA
-		   !kpse_in_name_ok(idx_fn) ||
+	      !kpse_in_name_ok(idx_fn) ||
 #endif
 		   (idx_fp = OPEN_IN(idx_fn)) == NULL)
 		) ||
@@ -472,7 +473,7 @@ check_all(char *fn, int ind_given, int ilg_given, int log_given)
 	snprintf(log_fn, sizeof(log_fn), "%s%s", base, INDEX_LOG);
 	if (
 #if USE_KPATHSEA
-	  !kpse_in_name_ok(log_fn) ||
+	!kpse_in_name_ok(log_fn) ||
 #endif
 	     (log_fp = OPEN_IN(log_fn)) == NULL) {
 	    FATAL1("Source log file %s not found.\n", log_fn);

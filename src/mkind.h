@@ -25,8 +25,6 @@
  *
  */
 
-#include "c-auto.h"
-
 /***********************************************************************
 
 			   INSTALLATION NOTES
@@ -507,7 +505,7 @@ extern NODE_PTR tail;
 
 extern int idx_dot;
 extern int idx_tt;
-extern size_t idx_gt;
+extern int idx_gt;
 extern int idx_et;
 extern int idx_dc;
 
