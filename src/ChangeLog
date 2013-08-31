@@ -1,3 +1,25 @@
+2013-06-28  Peter Breitenlohner  <peb@mppmu.mpg.de>
+
+	* scanid.c: Replace bzero(s, l) => memset(s, 0, l).
+
+2013-04-16  Peter Breitenlohner  <peb@mppmu.mpg.de>
+
+	Avoid gcc warning on 64-bit systems.
+	* mkind.[ch] (idx_gt): Change type 'size_t' back to 'int'.
+	* sortid.c (sort_idx): Cast qqsort() arg2 idx_gt to 'size_t'.
+
+2012-11-19  Peter Breitenlohner  <peb@mppmu.mpg.de>
+
+	* Makefile.am: Avoid use of deprecated INCLUDES.
+
+2012-10-16  Peter Breitenlohner  <peb@mppmu.mpg.de>
+
+	* mkind.h: Drop duplicate '#include "c-auto.h"'.
+
+2012-10-15  Peter Breitenlohner  <peb@mppmu.mpg.de>
+
+	* mkind.c: Avoid TL vs W32TeX diffs (from Akira).
+
 2012-07-28  Peter Breitenlohner  <peb@mppmu.mpg.de>
 
 	* mkind.c, scanid.c: Do not typecast the result of malloc().
