@@ -93,7 +93,6 @@
 #include <kpathsea/progname.h>
 #include <kpathsea/tex-glyph.h>
 #include <kpathsea/expand.h>
-#include <c-auto.h>
 #endif
 
 #include    <stdio.h>
