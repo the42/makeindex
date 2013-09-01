@@ -1,0 +1,130 @@
+\# From Index.pkg in -markup (version 1.10 2008/07/26 22:48:34)
+\# Need a .Warning command to write error messages.
+.
+\# The suffix for the raw index entries file
+.
+.ds idx-suf idx
+.
+\# The indexing command
+.
+.de Index
+.if \\n[.$]=0 .Warning \\$[0] must have at least one argument
+.if !ridx-opened .idx-open
+.ie '\\n[.z]'' .write idx-file IX: {\\$[*]}{\\n[%]}
+.el \!.write idx-file IX: {\\$[*]}{\\n[%]}
+..
+.
+\# As in LaTeX this is called only if an index is required.
+\# It also takes a style file as optional argument.
+\# Instead of 'markup' use whatever root you want.
+.
+.de MakeIndex
+.ie \\n[.$]>0 .ds idx-style \\$[1]
+.el .ds idx-style markup
+..
+.
+\# This section has the commands during index formatting
+.
+.
+\# Generated at the start of the index. Adapt as required: eg start a
+\# new page, set in two columns, adjust headers and footers, etc.
+.
+.de idx-begin
+.br
+.NewPage \"		Start a new page
+.nr head-contents 0 \"	Don't put headers in the TOC automatically
+.if dhead-ranges \{\ \"	Stop putting section ranges in the footer
+.  rm head-ranges
+.  ds page-fright
+.\}
+.HeadingC Index \"	Make a centred heading
+.MakeTocEntry toc:index Index \"	Put 'Index' in the TOC
+.TwoColumn \"		Set in two columns
+..
+.
+\# How to display the symbol or letter for an index section
+.
+.de idx-symbol
+.in 0
+.SubHeading \\$[1] \"	I use a subheading
+..
+.
+\# idx-[012] for index and sub(sub)index entries
+.
+.de idx-0
+.in 2m
+.ti -2m
+\&\\$[*]
+..
+.de idx-1
+.in 3m
+.ti -2m
+\&\\$[*]
+..
+.de idx-2
+.in 4m
+.ti -2m
+\&\\$[*]
+..
+.
+.als idx-01 idx-1
+.als idx-12 idx-2
+.
+.de idx-newgroup
+..
+.
+\# The end of the index; restore one columns setting.
+.
+.de idx-end
+.in 0
+.OneColumn
+..
+\# This section has the commands used during index generation
+.
+\# Open the file for raw index entries. 'doc-rootname' is the name of
+\# your document.
+.
+.de idx-open
+.if !d idx-filename .ds idx-filename \\*[doc-rootname].\\*[idx-suf]
+.open idx-file \\*[idx-filename]
+.nr idx-opened 1
+..
+.
+\# Somehow to be invoked at the end of your document, eg from a command set
+\# by .em, to invoke 'makeindex'
+\# 'TMAC_DIR' is the macro directory, 'markup-istdir' is a subdirectory
+\# for keeping index style files. Put them where they can be found.
+.
+.de idx-print
+.idx-get-ist . \\*[TMAC_DIR]/\\*[markup-istdir]
+.if !"\\*[idx-style-file]"" \{\
+.sy makeindex -q -c -s \\*[idx-style-file] \\*[idx-filename]
+.if !\\n[systat]=0 .Warning \\$[0] Error found by MakeIndex, see log
+.so \\*[doc-rootname].ind
+.\}
+..
+.
+\# Look for the style file. The args are 1 or more directories to search.
+.
+.de idx-get-ist
+.ds idx-style-file
+.if r idx-opened \{\
+.  close idx-file
+.  while 1 \{\
+.    if \\n[.$]=0 \{\
+.      ds idx-style-file
+.      Warning idx-print Cannot find index style file `\\*[idx-style]'
+.      break
+.    \}
+.    ds idx-style-file \\$[1]/\\*[idx-style].\\*[idx-stylesuf]
+.    sy test -f \\*[idx-style-file]
+.    if \\n[systat]=0 .break
+.    shift
+.  \}
+.\}
+..
+.
+\# Initialise
+.
+.rr idx-opened
+.rm idx-style
