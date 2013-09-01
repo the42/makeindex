@@ -1,3 +1,13 @@
+.R1
+label "(A.n|Q)"
+bracket-label " (" ")" ", "
+join-authors ", and " ", " ", and "
+move-punctuation
+reverse A1
+sort A1Q1T1B1E1
+database refer.db
+.R2
+
 .\" Reference macros (metadata)
 .TITLE     "Producing PDFs" "with groff and mom"
 .PDF_TITLE "\*[$TITLE]
@@ -507,7 +517,11 @@ within mom source files (see
 .PDF_WWW_LINK http://www.schaffter.ca/mom/momdoc/typesetting.html#page-setup-intro \
   SUFFIX ) "paper and page setup macros"
 do not require a corresponding \[-P-p<papersize>] option on the
-command line.  It is even possible to create documents with
+command line.
+.[
+ [schaffter
+.] 168)
+It is even possible to create documents with
 unequal-sized pages.
 .NO_SHIM
 .HEADING 2 NAMED pdf-diff \
@@ -591,4 +605,9 @@ is newer code with less testing\c
 .EL
 .LIST OFF
 .IQ CLEAR
+.BIBLIOGRAPHY
+.[
+$LIST$
+.]
+.BIBLIOGRAPHY OFF
 .TOC
