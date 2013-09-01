@@ -7,7 +7,6 @@ reverse A1
 sort A1Q1T1B1E1
 database refer.db
 .R2
-
 .\" Reference macros (metadata)
 .TITLE     "Producing PDFs" "with groff and mom"
 .PDF_TITLE "\*[$TITLE]
@@ -118,6 +117,7 @@ database refer.db
 .\"
 .DOCHEADER_ADVANCE 4.5c \" Begin this distance down from top of page
 .\"
+.MakeIndex
 .START
 .\"
 .HEADING 1 NAMED intro "Introduction"
@@ -523,6 +523,7 @@ command line.
 .] 168)
 It is even possible to create documents with
 unequal-sized pages.
+.Index unequal
 .NO_SHIM
 .HEADING 2 NAMED pdf-diff \
 "Differences between pdfmom and pdfroff"
@@ -605,6 +606,7 @@ is newer code with less testing\c
 .EL
 .LIST OFF
 .IQ CLEAR
+.idx-print
 .BIBLIOGRAPHY
 .[
 $LIST$
